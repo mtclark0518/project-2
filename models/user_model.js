@@ -1,9 +1,14 @@
 var mongoose = require('mongoose'),
 	bcrypt = require('bcrypt-nodejs');
 
-var User = new mongoose.Schema({
-	email 		: String,
-	password 	: String
+mongoose.connect('mongodb://localhost/project2');
+
+
+var User = mongoose.Schema({
+	local: {
+		email 		: String,
+		password 	: String
+	}
 });
 
 User.methods.hash = function(password) {

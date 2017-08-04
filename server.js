@@ -8,7 +8,6 @@ var express = require('express'),
 	bodyParser = require('body-parser'),
 	session = require('express-session');
 
-mongoose.connect('mongodb://localhost/project-2');
 
 app.use(morgan('dev'));
 app.use(cookieParser()); 
@@ -25,6 +24,10 @@ app.use(passport.session());
 app.use(flash());
 
 require('./config/passport')(passport);
+app.use(function(req, res, next) {
+	res.locals.currentUser = req.user;
+	next();
+});
 
 var routes = require('./config/routes');
 app.use(routes);
